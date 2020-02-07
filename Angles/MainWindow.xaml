@@ -1,0 +1,42 @@
+﻿<Window x:Class="Angles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Angles"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid x:Name="myGrid" ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="79*"></ColumnDefinition>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btNext" Content="Next"  Grid.Column="1" HorizontalAlignment="Right" Height="25" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="78" Click="btNext_Click"/>
+        <Line x:Name="ln1"  Grid.Column="0" X1="100" Y1="30" X2="200" Y2="150" Stroke="Red" />
+        <Line x:Name="ln2"  Grid.Column="0" X1="100" Y1="150" X2="200" Y2="30" Stroke="Blue" />
+        <ComboBox x:Name="lstStepsAngles"  Grid.Column="1" HorizontalAlignment="Right" Height="23" Margin="0,66,0,0" VerticalAlignment="Top" Width="42" SelectedIndex="1">
+            <ComboBoxItem Content="10" Foreground="#FF2D8528"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="2.5" Foreground="#FFD44D4D"/>
+        </ComboBox>
+        <Label x:Name="lbMaxAngle" Content="Max angle:"  Grid.Column="1" HorizontalAlignment="Right" Margin="0,152,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
+        <ComboBox x:Name="lstMinAngle"  Grid.Column="1" HorizontalAlignment="Right" Margin="0,120,0,0" VerticalAlignment="Top" Width="78" SelectedIndex="0" Height="22">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="15"/>
+        </ComboBox>
+        <Label x:Name="lbMinAngle" Content="Min angle:"  Grid.Column="1" HorizontalAlignment="Right" Margin="0,94,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
+        <ListBox x:Name="lstChoise"  Grid.Column="1" HorizontalAlignment="Right" Height="174" Margin="0,205,0,0" VerticalAlignment="Top" Width="78" SelectionChanged="lstChoise_SelectionChanged"/>
+        <Label x:Name="lbAngle"  Grid.Column="1" Content="Angle" HorizontalAlignment="Right" Height="27" Margin="0,0,0,0" VerticalAlignment="Top" Width="42"/>
+        <Label x:Name="lbStep" Content="Step:"  Grid.Column="1" HorizontalAlignment="Right" Height="24" Margin="0,42,0,0" VerticalAlignment="Top" Width="42"/>
+        <ComboBox x:Name="lstMaxAngle"  Grid.Column="1" HorizontalAlignment="Right" Margin="0,178,0,0" VerticalAlignment="Top" Width="78" SelectedIndex="4" Height="22">
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem Content="35"/>
+            <ComboBoxItem Content="40"/>
+            <ComboBoxItem Content="45"/>
+            <ComboBoxItem Content="50"/>
+        </ComboBox>
+    </Grid>
+</Window>
