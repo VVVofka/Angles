@@ -30,53 +30,61 @@ namespace Angles
             Random rnd = new Random();
             string s = lstStepsAngles.SelectionBoxItem.ToString();
             double stepangl = Convert.ToDouble(s.Replace(',', '.'));
-            int stepangl10 = Convert.ToInt32(stepangl * 10);
 
             s = lstMinAngle.SelectionBoxItem.ToString();
             double minangl = Convert.ToDouble(s.Replace(',', '.'));
-            int minangl10 = Convert.ToInt32(minangl * 10);
-            if (minangl10 == 0)
-                minangl10 = stepangl10;
+            if (minangl == 0)
+                minangl = stepangl;
 
             s = lstMaxAngle.SelectionBoxItem.ToString();
             double maxangl = Convert.ToDouble(s.Replace(',', '.'));
-            int maxangl10 = Convert.ToInt32(maxangl * 10);
 
-            if (minangl10 >= maxangl10)
+            if (minangl >= maxangl)
             {
-                var tmp = minangl10;
-                minangl10 = maxangl10;
-                maxangl10 = tmp;
+                var tmp = minangl;
+                minangl = maxangl;
+                maxangl = tmp;
             }
-            int cntangl = (maxangl10 - minangl10) / stepangl10;
+            int cntangl = Convert.ToInt32((maxangl - minangl) / stepangl);
 
             lstChoise.Items.Clear();
-            for (int k = minangl10; k < maxangl10; k += stepangl10)
+            for (double k = minangl; k < maxangl; k += stepangl)
             {
-                lstChoise.Items.Add(Convert.ToDouble(k) * 0.1);
+                lstChoise.Items.Add(k);
             }
             int idx = rnd.Next(cntangl);
             s = lstChoise.Items[idx].ToString();
             double angle = Convert.ToDouble(s.Replace(',', '.'));
 
-            double posx = rnd.NextDouble() * myGrid.ActualWidth;
-            double posy = rnd.NextDouble() * myGrid.ActualHeight;
-            ln1.X1 = posx - 100;
-            ln1.X2 = posx + 100;
-            ln1.Y1 = posy - 100;
-            ln1.Y2 = posy + 100;
-            ln2.X1 = posx - 100;
-            ln2.X2 = posx + 100;
-            ln2.Y1 = posy - 100;
-            ln2.Y2 = posy + 100;
+            double szline = 100;
+            double posx = szline + rnd.NextDouble() * (myGrid.ColumnDefinitions[0].ActualWidth - 2 * szline);
+            double posy = szline + rnd.NextDouble() * (myGrid.RowDefinitions[0].ActualHeight - 2 * szline);
+
+            ln1.X1 = posx - szline;
+            ln1.X2 = posx + szline;
+            ln1.Y1 = posy - szline;
+            ln1.Y2 = posy + szline;
+
+            ln2.X1 = posx - szline;
+            ln2.X2 = posx + szline;
+            ln2.Y1 = posy - szline;
+            ln2.Y2 = posy + szline;
 
             double direct = rnd.NextDouble() * 360;
             RotateTransform myRotateTransform1 = new RotateTransform(direct, posx, posy);
             ln1.RenderTransform = myRotateTransform1;
-            RotateTransform myRotateTransform2 = new RotateTransform(direct + angle, posx, posy);
+            double zn = -rnd.Next();
+            RotateTransform myRotateTransform2 = new RotateTransform(direct + zn * angle, posx, posy);
             ln2.RenderTransform = myRotateTransform2;
-            lbAngle.Content = angle.ToString();
+            lbAngle.Content = Math.Abs(angle).ToString();
             lbAngle.Visibility = Visibility.Hidden;
+            Console.WriteLine("{0}x{1}  {2}x{3} {4}x{5}   {6}x{7} {8}x{9}",
+                Convert.ToInt32(posx), Convert.ToInt32(posy),
+                Convert.ToInt32(ln1.X1), Convert.ToInt32(ln1.Y1),
+                Convert.ToInt32(ln1.X2), Convert.ToInt32(ln1.Y2),
+                Convert.ToInt32(ln2.X1), Convert.ToInt32(ln2.Y1),
+                Convert.ToInt32(ln2.X2), Convert.ToInt32(ln2.Y2)
+                );
         } // //////////////////////////////////////////////////////////////////////////////////////////////////////
         private void lstChoise_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -84,7 +92,7 @@ namespace Angles
             lbAngle.Visibility = Visibility.Visible;
             string choise = lstChoise.SelectedItem.ToString();
             string real = lbAngle.Content.ToString();
-            if(real == choise)
+            if (real == choise)
             {
                 lbAngle.Foreground = Brushes.Green;
             }

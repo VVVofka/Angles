@@ -7,13 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid x:Name="myGrid" ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="79*"></ColumnDefinition>
             <ColumnDefinition Width="80"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btNext" Content="Next"  Grid.Column="1" HorizontalAlignment="Right" Height="25" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="78" Click="btNext_Click"/>
+        <Canvas Background="Lavender" Grid.Row="0" Grid.Column="0">
         <Line x:Name="ln1"  Grid.Column="0" X1="100" Y1="30" X2="200" Y2="150" Stroke="Red" />
         <Line x:Name="ln2"  Grid.Column="0" X1="100" Y1="150" X2="200" Y2="30" Stroke="Blue" />
+        </Canvas>
+        <Button x:Name="btNext" Content="Next"  Grid.Column="1" HorizontalAlignment="Right" Height="25" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="78" Click="btNext_Click"/>
         <ComboBox x:Name="lstStepsAngles"  Grid.Column="1" HorizontalAlignment="Right" Height="23" Margin="0,66,0,0" VerticalAlignment="Top" Width="42" SelectedIndex="1">
             <ComboBoxItem Content="10" Foreground="#FF2D8528"/>
             <ComboBoxItem Content="5"/>
@@ -38,5 +43,6 @@
             <ComboBoxItem Content="45"/>
             <ComboBoxItem Content="50"/>
         </ComboBox>
+            
     </Grid>
 </Window>
