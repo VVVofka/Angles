@@ -22,9 +22,12 @@ namespace Angles {
 		Random rnd = new Random();
 		mdSimpleCross mdbase;
 		int previdx = -1;
+		OptionsReg options;
 		public MainWindow() {
 			InitializeComponent();
 			mdbase = new mdSimpleCross(myCanvas, ln1, ln2);
+			Control[] ctrls = new Control[] {chkNotRepeat, lstStepsAngles, lstMinAngle, lstMaxAngle};
+			options = new OptionsReg(this, ctrls);
 		} // ////////////////////////////////////////////////////////////////////////////
 		private void lstInit() {
 			string s = lstStepsAngles.SelectionBoxItem.ToString();
@@ -61,12 +64,12 @@ namespace Angles {
 			double stepangl = Convert.ToDouble(s.Replace(',', '.'));
 
 			int idx = -2;
-			for(int cntidx = 0; cntidx<9999; cntidx++) {
+			for(int cntidx = 0; cntidx < 9999; cntidx++) {
 				idx = rnd.Next(lstChoise.Items.Count);
 				if(chkNotRepeat.IsChecked == false || previdx != idx)
 					break;
 			}
-			if(chkNotRepeat.IsChecked == true) 
+			if(chkNotRepeat.IsChecked == true)
 				previdx = idx;
 			s = lstChoise.Items[idx].ToString();
 			double angle = Convert.ToDouble(s.Replace(',', '.'));
@@ -103,5 +106,8 @@ namespace Angles {
 		private void lstMaxAngle_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			lstInit();
 		} // ////////////////////////////////////////////////////////////////////////////////////////////////////
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+			options.SaveAll();
+		} // //////////////////////////////////////////////////////////////////////////////////////////////////////
 	} // *****************************************************************************************************
 }

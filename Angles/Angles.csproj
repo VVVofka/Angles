@@ -72,6 +72,7 @@
     <Compile Include="mdBase.cs" />
     <Compile Include="mdParams.cs" />
     <Compile Include="mdSimpleCross.cs" />
+    <Compile Include="OptionsReg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

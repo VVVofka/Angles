@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Angles"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1024">
+        Title="MainWindow" Height="800" Width="1024" Closing="Window_Closing">
     <Grid x:Name="myGrid" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
