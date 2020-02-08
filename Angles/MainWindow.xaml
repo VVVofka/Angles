@@ -17,6 +17,7 @@
         <Canvas x:Name="myCanvas" Background="#FF81C98B" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
             <Line x:Name="ln1"  Grid.Column="0" X1="100" Y1="30" X2="200" Y2="150" Stroke="Red" />
             <Line x:Name="ln2"  Grid.Column="0" X1="100" Y1="150" X2="200" Y2="30" Stroke="Blue" />
+            <Line x:Name="ln3"  Grid.Column="0" X1="75" Y1="15" X2="27" Y2="38" Stroke="White" Visibility="Hidden"/>
         </Canvas>
         <Button x:Name="btNext" Content="Next"  Grid.Column="1" HorizontalAlignment="Right" Height="25" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="78" Click="btNext_Click" Grid.Row="1"/>
         <ComboBox x:Name="lstStepsAngles"  Grid.Column="1" HorizontalAlignment="Right" Height="23" Margin="0,66,0,0" VerticalAlignment="Top" Width="42" SelectedIndex="1" SelectionChanged="lstStepsAngles_SelectionChanged">
@@ -41,7 +42,7 @@
         </ComboBox>
         <Label x:Name="lbMinAngle" Content="Min angle:"  Grid.Column="1" HorizontalAlignment="Right" Margin="0,94,0,0" VerticalAlignment="Top" Width="78" Height="26"/>
         <ListBox x:Name="lstChoise"  Grid.Column="1" HorizontalAlignment="Right" Height="378" Margin="0,284,2,0" VerticalAlignment="Top" Width="78" SelectionChanged="lstChoise_SelectionChanged" SelectedIndex="0" FontSize="24"/>
-        <Label x:Name="lbAngle"  Grid.Column="1" Content="Angle" HorizontalAlignment="Right" Height="27" Margin="0,0,0,0" VerticalAlignment="Top" Width="42"/>
+        <Label x:Name="lbAngle"  Grid.Column="1" Content="0" HorizontalAlignment="Right" Height="27" Margin="0,0,0,0" VerticalAlignment="Top" Width="42"/>
         <Label x:Name="lbStep" Content="Step:"  Grid.Column="1" HorizontalAlignment="Right" Height="24" Margin="0,42,0,0" VerticalAlignment="Top" Width="42"/>
         <ComboBox x:Name="lstMaxAngle"  Grid.Column="1" HorizontalAlignment="Right" Margin="0,178,0,0" VerticalAlignment="Top" Width="78" SelectedIndex="4" Height="22" SelectionChanged="lstMaxAngle_SelectionChanged">
             <ComboBoxItem Content="20"/>

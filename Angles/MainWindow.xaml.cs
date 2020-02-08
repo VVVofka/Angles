@@ -25,7 +25,7 @@ namespace Angles {
 		OptionsReg options;
 		public MainWindow() {
 			InitializeComponent();
-			mdbase = new mdSimpleCross(myCanvas, ln1, ln2);
+			mdbase = new mdSimpleCross(myCanvas, ln1, ln2, ln3);
 			Control[] ctrls = new Control[] {chkNotRepeat, lstStepsAngles, lstMinAngle, lstMaxAngle};
 			options = new OptionsReg(this, ctrls);
 		} // ////////////////////////////////////////////////////////////////////////////
@@ -59,6 +59,7 @@ namespace Angles {
 				lstChoise.Items.Add(k);
 		} // ////////////////////////////////////////////////////////////////////////////
 		private void btNext_Click(object sender, RoutedEventArgs e) {
+			ln3.Visibility = Visibility.Hidden;
 			lstInit();
 			string s = lstStepsAngles.SelectionBoxItem.ToString();
 			double stepangl = Convert.ToDouble(s.Replace(',', '.'));
@@ -95,6 +96,8 @@ namespace Angles {
 				//SystemSounds.Asterisk.Play();
 				player.Stream = Properties.Resources.Speech_Sleep;
 				player.Play();
+				mdbase.placeLine3(Convert.ToDouble(choise));   // choise
+				ln3.Visibility = Visibility.Visible;
 			}
 		} // //////////////////////////////////////////////////////////////////////////////////////////////////////
 		private void lstStepsAngles_SelectionChanged(object sender, SelectionChangedEventArgs e) {
