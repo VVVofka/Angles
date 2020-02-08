@@ -16,5 +16,8 @@ namespace Angles {
 			ln1 = line_1;
 			ln2 = line_2;
 		} // //////////////////////////////////////////////////////////////
+		protected double CanvasMinSize { 
+			get { return Math.Min(canvas.ActualWidth, canvas.ActualHeight); }
+		}
 	} // *******************************************************************
 }

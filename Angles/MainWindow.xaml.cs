@@ -30,7 +30,6 @@ namespace Angles {
 			string s = lstStepsAngles.SelectionBoxItem.ToString();
 			if(s.Length == 0)
 				return;
-
 			double stepangl = Convert.ToDouble(s.Replace(',', '.'));
 
 			s = lstMinAngle.SelectionBoxItem.ToString();
@@ -53,7 +52,7 @@ namespace Angles {
 			int cntangl = Convert.ToInt32((maxangl - minangl) / stepangl);
 
 			lstChoise.Items.Clear();
-			for(double k = minangl; k < maxangl; k += stepangl)
+			for(double k = minangl; k <= maxangl; k += stepangl)
 				lstChoise.Items.Add(k);
 		} // ////////////////////////////////////////////////////////////////////////////
 		private void btNext_Click(object sender, RoutedEventArgs e) {
@@ -61,15 +60,17 @@ namespace Angles {
 			string s = lstStepsAngles.SelectionBoxItem.ToString();
 			double stepangl = Convert.ToDouble(s.Replace(',', '.'));
 
-			int idx, cntidx = 0;
-			do {
+			int idx = -2;
+			for(int cntidx = 0; cntidx<9999; cntidx++) {
 				idx = rnd.Next(lstChoise.Items.Count);
-			} while(previdx == idx && ++cntidx < 999);
-			previdx = idx;
+				if(chkNotRepeat.IsChecked == false || previdx != idx)
+					break;
+			}
+			if(chkNotRepeat.IsChecked == true) 
+				previdx = idx;
 			s = lstChoise.Items[idx].ToString();
 			double angle = Convert.ToDouble(s.Replace(',', '.'));
-			double minsz = Math.Min(myCanvas.ActualWidth, myCanvas.ActualHeight);
-			mdbase.placeLine2(minsz * 0.75, minsz * 0.84, angle, 2.0 / 4, 2.0 / 5);
+			mdbase.placeLine2(angle);
 			lbAngle.Content = Math.Abs(angle).ToString();
 			lbAngle.Visibility = Visibility.Hidden;
 		} // //////////////////////////////////////////////////////////////////////////////////////////////////////
