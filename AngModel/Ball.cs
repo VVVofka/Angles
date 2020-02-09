@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AngModel {
+﻿
+namespace AngModel{
 	class Ball {
-		double radius;
 		public double x { get; private set; }
 		public double y { get; private set; }
+		double radius;
 		public Ball(double diameter) { radius = diameter / 2; }
 		public double R {   // Radius
 			get { return radius; }

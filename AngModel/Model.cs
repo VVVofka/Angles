@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+
 namespace AngModel {
 	class Model {
 		// All in milimeter
@@ -16,6 +18,7 @@ namespace AngModel {
 		Ball ballTarget = new Ball(BallDiameter);
 		Loses loses = new Loses(LoseCornerWidth, LoseCenterWidth, TableWidth, TableHeigh);
 		public Lose activeLose { get; private set; }
+		public Coord result { get; private set; }
 
 		public Model() {
 			setActiveLose(0);
@@ -26,6 +29,9 @@ namespace AngModel {
 		public Lose setActiveLose(int index) { return activeLose = loses[index]; }
 		public void setBallCue(double X, double Y) { ballCue.set(X, Y); }
 		public void setBallTarget(double X, double Y) { ballTarget.set(X, Y); }
-
+		public Coord Shoot() {
+			
+			return result;
+		} // ///////////////////////////////////////////////////////////////////////
 	} // ***************************************************************************
 }
