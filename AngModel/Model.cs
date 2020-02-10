@@ -8,26 +8,38 @@ using System.Windows;
 namespace AngModel {
 	class Model {
 		// All in milimeter
-		public const double BallDiameter = 68.0;
-		public const double TableWidth = 3550.0;
-		public const double TableHeigh = 1775.0;
-		public const double LoseCornerWidth = 72.0;
-		public const double LoseCenterWidth = 82.0;
+		public double BallDiameter;     // = 68.0;
+		public double TableWidth;       // = 3550.0;
+		public double TableHeigh;       // = 1775.0;
+		public double LoseCornerWidth;  // = 72.0;
+		public double LoseCenterWidth;  // = 82.0;
 
-		Ball ballCue = new Ball(BallDiameter);
-		Ball ballTarget = new Ball(BallDiameter);
-		Ball ballAim = new Ball(BallDiameter);
-		Point pointAim = new Point(0,0);
-		Loses loses = new Loses(LoseCornerWidth, LoseCenterWidth, TableWidth, TableHeigh);
+		Ball ballCue;
+		Ball ballTarget;
+		Ball ballAim;
+		Point pointAim = new Point(-1,-1);
+		Loses loses;
 		public Lose activeLose { get; private set; }
 		public Point result1 { get; private set; }
 		public Point result { get; private set; }
 		public Point result2 { get; private set; }
 
 		public Model() {
+			TableWidth = Convert.ToDouble(Properties.Resources.TableWidth);
+			TableHeigh = Convert.ToDouble(Properties.Resources.TableHeigh);
+			LoseCornerWidth = Convert.ToDouble(Properties.Resources.LoseCornerWidth);
+			LoseCenterWidth = Convert.ToDouble(Properties.Resources.LoseCenterWidth);
+			loses = new Loses(LoseCornerWidth, LoseCenterWidth, TableWidth, TableHeigh);
 			setActiveLose(0);
-			setBallCue(2 * BallDiameter, 2 * BallDiameter);
-			setBallTarget(TableWidth / 4, TableHeigh / 2);
+
+			BallDiameter = Convert.ToDouble(Properties.Resources.BallDiameter);
+			ballCue = new Ball(BallDiameter);
+			ballTarget = new Ball(BallDiameter);
+			ballAim = new Ball(BallDiameter);
+			setBallTarget(2 * BallDiameter, 2 * BallDiameter);
+			setBallCue(TableWidth / 4, TableHeigh / 2);
+			for(double j = -1; j < 1; j += 0.1)
+				Console.WriteLine("{0} :{1}", j, Shoot(j));
 		} // //////////////////////////////////////////////////////////////////////
 
 		public Lose setActiveLose(int index) { return activeLose = loses[index]; }

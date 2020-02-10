@@ -20,6 +20,7 @@ namespace AngModel {
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
-		}
-	}
+			Model m = new Model();
+		} // //////////////////////////////////////////////////////////////////////////////////
+	} // ************************************************************************************
 }
