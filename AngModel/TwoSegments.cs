@@ -3,6 +3,9 @@ using System.Windows;
 // http://grafika.me/node/362
 namespace AngModel {
 	class Vect {
+		struct ABC {
+			public double A, B, C;//коэффициенты уравнения прямой вида: Ax+By+C=0
+		} // *********************************************************************************
 		public Point a,b;
 		public Vect() {
 			a = new Point(0, 0);
@@ -16,14 +19,27 @@ namespace AngModel {
 			a = new Point(x1, y1);
 			b = new Point(x2, y2);
 		} // ////////////////////////////////////////////////////////////////////////
+		static public double len2(Point p1, Point p2) { return Math.Sqrt((p2.X - p1.X) * (p2.X - p1.X) + (p2.Y - p1.Y) * (p2.Y - p1.Y)); }
 		public double len { get { return Math.Sqrt((b.X - a.X) * (b.X - a.X) + (b.Y - a.Y) * (b.Y - a.Y)); } }
 		public double radians { get { return Math.Atan2(b.Y - a.Y, b.X - a.X); } }
 		public double degree { get { return radians * (180 / Math.PI); } }
-		public Point pointByLen(double lenght) {
-			if(len == 0)
-				return new Point(0, 0);
-			double k = lenght / len;
+		public Point pointByKLen(double k) {
 			return new Point(a.X + k * (b.X - a.X), a.Y + k * (b.Y - a.Y));
+		} // ///////////////////////////////////////////////////////////////////////////////////
+		public Point pointByLen(double lenght) {
+			double l = len;
+			if(l == 0)
+				return a;
+			return pointByKLen(lenght / l);
+		} // ///////////////////////////////////////////////////////////////////////////////////
+		public Point pointByProj(Point point) {
+			if(len == 0)
+				return a;
+			double l2 = len2(b, point);
+			if(l2 == 0)
+				return b;
+			double l1 = len2(a, point);
+			return pointByKLen(l1 / l2);
 		} // ///////////////////////////////////////////////////////////////////////////////////
 		public Vect getShift(double shift_x, double shift_y) {
 			double sina = (b.Y - a.Y) / (b.X - a.X);
@@ -32,6 +48,31 @@ namespace AngModel {
 			Point newb = new Point(b.X + shift_x * cosa, b.Y + shift_y * sina);
 			return new Vect(newa, newb);
 		} // ////////////////////////////////////////////////////////////////////////////////////
+		private Point getPointCrossLine(Vect other_vect) {    //поиск точки пересечения линий
+			ABC abc1 =LineEquation(a, b);
+			ABC abc2 =LineEquation(other_vect.a, other_vect.b);
+			double d = abc1.A * abc2.B - abc1.B * abc2.A;
+			double dx =-abc1.C * abc2.B + abc1.B * abc2.C;
+			double dy =-abc1.A * abc2.C + abc1.C * abc2.A;
+			return new Point(dx / d, dy / d);
+		} // //////////////////////////////////////////////////////////////////////////
+		public bool isPossess(Point point) {    // точка принадлежит отрезку
+			bool bx = (point.X >= a.X && point.X <= b.X) ||
+				(point.X >= b.X && point.X <= a.X);
+			bool by = (point.Y >= a.Y && point.Y <= b.Y) ||
+				(point.Y >= b.Y && point.Y <= a.Y);
+			return bx & by;
+		} // ///////////////////////////////////////////////////////////////////////////////////
+		  //построение уравнения прямой
+		  //коэффициенты уравнения прямой вида: Ax+By+C=0
+		private ABC LineEquation(Point p1, Point p2) {
+			ABC abc = new ABC();
+			abc.A = p2.Y - p1.Y;
+			abc.B = p1.X - p2.X;
+			abc.C = -p1.X * (p2.Y - p1.Y) + p1.Y * (p2.X - p1.X);
+			return abc;
+		} // ///////////////////////////////////////////////////////////////////////////////
+
 	} // ****************************************************************************
 	class TwoSegments {
 		struct ABC {

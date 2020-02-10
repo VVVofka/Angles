@@ -1,19 +1,19 @@
 ﻿
+using System.Windows;
+
 namespace AngModel {
 	class Lose {
 		readonly double width;
-		readonly double x0, x1;  // horiz coordinate
-		readonly double y0, y1; // vert coordinate
+		public Point point1 { get { return vect.a; } }
+		public Point point2 { get { return vect.b; } }
+		readonly Vect vect;
 		string description;
 		public Lose(double Width, 
 					double X0, double Y0, 
 					double X1, double Y1,
 					string Description) {
 			width = Width;
-			x0 = X0;
-			y0 = Y0;
-			x1 = X1;
-			y1 = Y1;
+			vect = new Vect(new Point(X0, Y0), new Point(X1, Y1));
 			description = Description;
 		} // ////////////////////////////////////////////////////////////////////////
 	} // ****************************************************************************
