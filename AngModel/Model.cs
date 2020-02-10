@@ -20,7 +20,9 @@ namespace AngModel {
 		Point pointAim = new Point(0,0);
 		Loses loses = new Loses(LoseCornerWidth, LoseCenterWidth, TableWidth, TableHeigh);
 		public Lose activeLose { get; private set; }
-		public Coord result { get; private set; }
+		public Point result1 { get; private set; }
+		public Point result { get; private set; }
+		public Point result2 { get; private set; }
 
 		public Model() {
 			setActiveLose(0);
@@ -31,7 +33,7 @@ namespace AngModel {
 		public Lose setActiveLose(int index) { return activeLose = loses[index]; }
 		public void setBallCue(double X, double Y) { ballCue.set(X, Y); }
 		public void setBallTarget(double X, double Y) { ballTarget.set(X, Y); }
-		public Coord Shoot(double k) {  //k=-1...+1
+		public bool Shoot(double k) {  //k=-1...+1
 			double lenAT = ballTarget.R * k;
 			double lenTO = Vect.len2(ballTarget.point, ballCue.point);
 			double lenAO = Math.Sqrt(lenTO * lenTO - lenAT * lenAT);
@@ -46,8 +48,15 @@ namespace AngModel {
 			Vect CT = new Vect(ballAim.point, ballTarget.point);
 			Vect CT1 = CT.getShift(0, -ballAim.R);
 			Vect CT2 = CT.getShift(0, +ballAim.R);
-
-			return result;
+			result1 = activeLose.vect.getPointCrossLine(CT1);
+			result = activeLose.vect.getPointCrossLine(CT);
+			result2 = activeLose.vect.getPointCrossLine(CT2);
+			bool res1 = activeLose.vect.isPossess(result1);
+			bool res2 = activeLose.vect.isPossess(result2);
+			// check direction
+			Vect CL = new Vect(ballAim.point, result);
+			bool res = CL.isPossess(ballTarget.point);
+			return (res1 || res2) && res;
 		} // ///////////////////////////////////////////////////////////////////////
 	} // ***************************************************************************
 }

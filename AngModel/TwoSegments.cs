@@ -48,7 +48,7 @@ namespace AngModel {
 			Point newb = new Point(b.X + shift_x * cosa, b.Y + shift_y * sina);
 			return new Vect(newa, newb);
 		} // ////////////////////////////////////////////////////////////////////////////////////
-		private Point getPointCrossLine(Vect other_vect) {    //поиск точки пересечения линий
+		public Point getPointCrossLine(Vect other_vect) {    //поиск точки пересечения линий
 			ABC abc1 =LineEquation(a, b);
 			ABC abc2 =LineEquation(other_vect.a, other_vect.b);
 			double d = abc1.A * abc2.B - abc1.B * abc2.A;

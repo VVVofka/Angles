@@ -6,7 +6,7 @@ namespace AngModel {
 		readonly double width;
 		public Point point1 { get { return vect.a; } }
 		public Point point2 { get { return vect.b; } }
-		readonly Vect vect;
+		public readonly Vect vect;
 		string description;
 		public Lose(double Width, 
 					double X0, double Y0, 
