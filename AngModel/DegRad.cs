@@ -15,7 +15,7 @@ namespace AngModel {
 			return set(new Point(0, 0), point1);
 		} // //////////////////////////////////////////////////////////////////
 		public double set(Point point1, Point point2) {
-			return rad = Math.Atan2(point2.X - point1.X, point2.Y - point1.Y);
+			return rad = Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
 		} // //////////////////////////////////////////////////////////////////
 		public double set(double x, double y) {
 			return set(new Point(x, y));

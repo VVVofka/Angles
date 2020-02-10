@@ -1,6 +1,38 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 // http://grafika.me/node/362
 namespace AngModel {
+	class Vect {
+		public Point a,b;
+		public Vect() {
+			a = new Point(0, 0);
+			b = new Point(1, 1);
+		}
+		public Vect(Point A, Point B) {
+			a = A;
+			b = B;
+		} // ////////////////////////////////////////////////////////////////////////
+		public Vect(double x1, double y1, double x2, double y2) {
+			a = new Point(x1, y1);
+			b = new Point(x2, y2);
+		} // ////////////////////////////////////////////////////////////////////////
+		public double len { get { return Math.Sqrt((b.X - a.X) * (b.X - a.X) + (b.Y - a.Y) * (b.Y - a.Y)); } }
+		public double radians { get { return Math.Atan2(b.Y - a.Y, b.X - a.X); } }
+		public double degree { get { return radians * (180 / Math.PI); } }
+		public Point pointByLen(double lenght) {
+			if(len == 0)
+				return new Point(0, 0);
+			double k = lenght / len;
+			return new Point(a.X + k * (b.X - a.X), a.Y + k * (b.Y - a.Y));
+		} // ///////////////////////////////////////////////////////////////////////////////////
+		public Vect getShift(double shift_x, double shift_y) {
+			double sina = (b.Y - a.Y) / (b.X - a.X);
+			double cosa = 1 / sina;
+			Point newa = new Point(a.X + shift_x * cosa, a.Y + shift_y * sina);
+			Point newb = new Point(b.X + shift_x * cosa, b.Y + shift_y * sina);
+			return new Vect(newa, newb);
+		} // ////////////////////////////////////////////////////////////////////////////////////
+	} // ****************************************************************************
 	class TwoSegments {
 		struct ABC {
 			public double A, B, C;//коэффициенты уравнения прямой вида: Ax+By+C=0
