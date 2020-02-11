@@ -8,6 +8,7 @@ namespace AngModel {
 	class Loses {
 		public Loses(double width_corner, double width_center, double width_table, double heigh_table) {
 			v = new Lose[6];
+			vb = new Border[6];
 			double tmp = width_corner / Math.Sqrt(2);
 			double xleft = tmp;
 			double xright = width_table - tmp;

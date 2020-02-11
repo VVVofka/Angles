@@ -20,7 +20,8 @@ namespace AngModel {
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
-			Model m = new Model();
+			DataContext = new Controller();
+			gCueBall.Margin.Left = DataC
 		} // //////////////////////////////////////////////////////////////////////////////////
 	} // ************************************************************************************
 }

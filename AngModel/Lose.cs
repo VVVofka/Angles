@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace AngModel {
@@ -29,6 +31,11 @@ namespace AngModel {
 			a.Y = y1;
 			b.X = x2;
 			b.Y = y2;
+		}
+		public event PropertyChangedEventHandler PropertyChanged;
+		public void OnPropertyChanged([CallerMemberName]string prop = "") {
+			if(PropertyChanged != null)
+				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
 	} // *****************************************************************
 
