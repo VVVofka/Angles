@@ -20,9 +20,12 @@ namespace AngModel {
 		public Point pointAim = new Point(-1,-1);
 		public Loses loses;
 		public Lose activeLose { get; private set; }
-		public Point result1 { get; private set; }
-		public Point result { get; private set; }
-		public Point result2 { get; private set; }
+		public Vect CT1 { get; private set; }
+		public Vect CT { get; private set; }
+		public Vect CT2 { get; private set; }
+		//public Point result1 { get; private set; }
+		//public Point result { get; private set; }
+		//public Point result2 { get; private set; }
 		public Model() {
 			TableWidth = Convert.ToDouble(Properties.Resources.TableWidth);
 			TableHeigh = Convert.ToDouble(Properties.Resources.TableHeigh);
@@ -37,8 +40,7 @@ namespace AngModel {
 			ballAim = new Ball(BallDiameter);
 			setBallTarget(2 * BallDiameter, 2 * BallDiameter);
 			setBallCue(TableWidth / 4, TableHeigh / 2);
-			double j = 0;
-			for(j = -1; j <= 1; j += 0.1)
+			for(double j = -0.1; j <= 0.1; j += 0.01)
 				Console.WriteLine("{0} :{1}", j, Shoot(j));
 		} // //////////////////////////////////////////////////////////////////////
 		public Lose setActiveLose(int index) { return activeLose = loses[index]; }
@@ -56,18 +58,25 @@ namespace AngModel {
 			double lenAC = Math.Sqrt( ballTarget.D * ballTarget.D - lenAT * lenAT);
 			Vect AO = new Vect(pointAim, ballCue.point);
 			ballAim.point = AO.pointByLen(lenAC);
-			Vect CT = new Vect(ballAim.point, ballTarget.point);
-			Vect CT1 = CT.getShift(0, -ballAim.R);
-			Vect CT2 = CT.getShift(0, +ballAim.R);
-			result1 = activeLose.vect.getPointCrossLine(CT1);
-			result = activeLose.vect.getPointCrossLine(CT);
-			result2 = activeLose.vect.getPointCrossLine(CT2);
-			bool res1 = activeLose.vect.isPossess(result1);
-			bool res2 = activeLose.vect.isPossess(result2);
+			CT = new Vect(ballAim.point, ballTarget.point);
+			CT1 = CT.getShiftSide(-ballAim.R);
+			CT2 = CT.getShiftSide(+ballAim.R);
+			//Console.WriteLine($"CT1: {CT1.a}\t {CT1.b}\nCT : {CT.a}\t {CT.b}\nCT2: {CT2.a}\t{CT2.b}");
+			Point result = activeLose.vect.getPointCrossLine(CT);
+			Point result1 = activeLose.vect.getPointCrossLine(CT1);
+			Point result2 = activeLose.vect.getPointCrossLine(CT2);
+			CT.a = CT.b;
+			CT1.a = CT1.b;
+			CT2.a = CT2.b;
+			CT.b = result;
+			CT1.b = result1;
+			CT2.b = result2;
+			bool bres1 = activeLose.vect.isPossess(result1);
+			bool bres2 = activeLose.vect.isPossess(result2);
 			// check direction
 			Vect CL = new Vect(ballAim.point, result);
-			bool res = CL.isPossess(ballTarget.point);
-			return (res1 || res2) && res;
+			bool bres = CL.isPossess(ballTarget.point);
+			return (bres1 && bres2) && bres;
 		} // ///////////////////////////////////////////////////////////////////////
 	} // ***************************************************************************
 }
