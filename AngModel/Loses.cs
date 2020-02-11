@@ -13,17 +13,28 @@ namespace AngModel {
 			double xright = width_table - tmp;
 			double ytop = tmp;
 			double ybottom = heigh_table - tmp;
-			v[0] = new Lose(width_corner, 0, ytop, xleft, 0, "Top Left");
-			v[1] = new Lose(width_corner, xright, 0, width_table, ytop, "Top Right");
+			double tmpleft = (width_table - width_center) / 2;
+			double tmpright = (width_table + width_center) / 2;
+			int i = 0;
+			v[i] = new Lose(width_corner, 0, ytop, xleft, 0, "Top Left");
+			v[1] = new Lose(width_corner, xright, 0, width_table, ytop, "Top Right");	
 			v[2] = new Lose(width_corner, 0, ybottom, xleft, heigh_table, "Bottom Left");
 			v[3] = new Lose(width_corner, xright, heigh_table, width_table, ybottom, "Bottom Right");
 
-			double tmpleft = (width_table - width_center) / 2;
-			double tmpright = (width_table + width_center) / 2;
 			v[4] = new Lose(width_center, tmpleft, 0, tmpright, 0, "Top Center");
 			v[5] = new Lose(width_center, tmpleft, heigh_table, tmpright, heigh_table, "Bottom Center");
+
+			vb[0] = new Border(v[0].point2, v[4].point1);
+			vb[1] = new Border(v[4].point2, v[1].point1);
+			vb[2] = new Border(v[2].point2, v[5].point1);
+			vb[3] = new Border(v[5].point2, v[3].point1);
+
+			vb[4] = new Border(v[0].point1, v[2].point1);
+			vb[5] = new Border(v[1].point2, v[3].point2);
 		}
 		Lose[] v;
+		Border[] vb;
+
 		public Lose this[int index] {
 			get { return v[index]; }
 			private set { v[index] = value; }

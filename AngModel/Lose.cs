@@ -17,4 +17,19 @@ namespace AngModel {
 			description = Description;
 		} // ////////////////////////////////////////////////////////////////////////
 	} // ****************************************************************************
+	class Border {
+		Point a;
+		Point b;
+		public Border() { }
+		public Border(Point A, Point B) {
+			a = A; b = B;
+		}
+		public Border(double x1, double y1, double x2, double y2) {
+			a.X = x1;
+			a.Y = y1;
+			b.X = x2;
+			b.Y = y2;
+		}
+	} // *****************************************************************
+
 }
