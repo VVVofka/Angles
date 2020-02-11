@@ -8,7 +8,7 @@ namespace AngModel {
 	class Loses {
 		public Loses(double width_corner, double width_center, double width_table, double heigh_table) {
 			v = new Lose[6];
-			vb = new Border[6];
+			borders = new Border[6];
 			double tmp = width_corner / Math.Sqrt(2);
 			double xleft = tmp;
 			double xright = width_table - tmp;
@@ -25,16 +25,16 @@ namespace AngModel {
 			v[4] = new Lose(width_center, tmpleft, 0, tmpright, 0, "Top Center");
 			v[5] = new Lose(width_center, tmpleft, heigh_table, tmpright, heigh_table, "Bottom Center");
 
-			vb[0] = new Border(v[0].point2, v[4].point1);
-			vb[1] = new Border(v[4].point2, v[1].point1);
-			vb[2] = new Border(v[2].point2, v[5].point1);
-			vb[3] = new Border(v[5].point2, v[3].point1);
+			borders[0] = new Border(v[0].point2, v[4].point1);
+			borders[1] = new Border(v[4].point2, v[1].point1);
+			borders[2] = new Border(v[2].point2, v[5].point1);
+			borders[3] = new Border(v[5].point2, v[3].point1);
 
-			vb[4] = new Border(v[0].point1, v[2].point1);
-			vb[5] = new Border(v[1].point2, v[3].point2);
+			borders[4] = new Border(v[0].point1, v[2].point1);
+			borders[5] = new Border(v[1].point2, v[3].point2);
 		}
 		Lose[] v;
-		Border[] vb;
+		public Border[] borders;
 
 		public Lose this[int index] {
 			get { return v[index]; }

@@ -31,12 +31,11 @@ namespace AngModel {
 			a.Y = y1;
 			b.X = x2;
 			b.Y = y2;
-		}
-		public event PropertyChangedEventHandler PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName]string prop = "") {
-			if(PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(prop));
-		}
+		} // //////////////////////////////////////////////////////////////
+		public double x1 { get { return a.X; } }
+		public double y1 { get { return a.Y; } }
+		public double x2 { get { return b.X; } }
+		public double y2 { get { return b.Y; } }
 	} // *****************************************************************
 
 }

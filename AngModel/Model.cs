@@ -14,16 +14,15 @@ namespace AngModel {
 		public double LoseCornerWidth;  // = 72.0;
 		public double LoseCenterWidth;  // = 82.0;
 
-		Ball ballCue;
-		Ball ballTarget;
-		Ball ballAim;
-		Point pointAim = new Point(-1,-1);
-		Loses loses;
+		public Ball ballCue;
+		public Ball ballTarget;
+		public Ball ballAim;
+		public Point pointAim = new Point(-1,-1);
+		public Loses loses;
 		public Lose activeLose { get; private set; }
 		public Point result1 { get; private set; }
 		public Point result { get; private set; }
 		public Point result2 { get; private set; }
-
 		public Model() {
 			TableWidth = Convert.ToDouble(Properties.Resources.TableWidth);
 			TableHeigh = Convert.ToDouble(Properties.Resources.TableHeigh);

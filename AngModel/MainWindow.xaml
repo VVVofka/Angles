@@ -5,15 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AngModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="400" Width="600" SizeChanged="Window_SizeChanged" Loaded="Window_Loaded">
+    <Grid x:Name="grid" Margin="5" >
         <!--  {Binding D, UpdateSourceTrigger=PropertyChanged} -->
         <Ellipse x:Name="gCueBall" 
-                 DataContext="CueBall"
-                 Height="{Binding R, UpdateSourceTrigger=PropertyChanged}"
+                 Height="100"
                  Fill="#FFF4F4F5" 
                  HorizontalAlignment="Left"  Stroke="Black" VerticalAlignment="Top" 
-                 Margin ="284,164,0,0"
+                 Margin="115,142,0,0"
                  Width="100"/>
+        <Line x:Name="Border0" Stroke="Black" X1="20" Y1="20" X2="280" Y2="20"/>
+        <Line x:Name="Border1" Stroke="Black" X1="300" Y1="20" X2="560" Y2="20"/>
+        <Line x:Name="Border2" Stroke="Black" X1="20" Y1="340" X2="280" Y2="340"/>
+        <Line x:Name="Border3" Stroke="Black" X1="360" Y1="340" X2="560" Y2="340"/>
+        <Line x:Name="Border4" Stroke="Black" X1="5" Y1="40" X2="5" Y2="320"/>
+        <Line x:Name="Border5" Stroke="Black" X1="575" Y1="40" X2="575" Y2="320"/>
+        <Label x:Name="lbl" Content="lbl" HorizontalAlignment="Left" Margin="50,76,0,0" VerticalAlignment="Top" Height="35" Width="98"/>
     </Grid>
 </Window>
