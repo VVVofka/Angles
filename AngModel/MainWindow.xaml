@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AngModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="600" SizeChanged="Window_SizeChanged" Loaded="Window_Loaded">
+        Title="MainWindow" Height="400" Width="600" SizeChanged="Window_SizeChanged" Loaded="Window_Loaded" StateChanged="Window_StateChanged" MouseMove="Window_MouseMove">
     <Grid x:Name="grid" Margin="5" >
         <!--  {Binding D, UpdateSourceTrigger=PropertyChanged} -->
         <Rectangle x:Name="PlayGround" Fill="#7F32C832" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" RadiusX="19" RadiusY="20"   />
@@ -18,5 +18,10 @@
         <Line x:Name="Border3" Stroke="Black" X1="360" Y1="340" X2="560" Y2="340"/>
         <Line x:Name="Border4" Stroke="Black" X1="5" Y1="40" X2="5" Y2="320"/>
         <Line x:Name="Border5" Stroke="Black" X1="575" Y1="40" X2="575" Y2="320"/>
+        <Line x:Name="gLineTargeCentr" Stroke="DarkBlue" X1="5" Y1="4" X2="575" Y2="320" StrokeThickness="3"/>
+        <Line x:Name="gLineTargeLeft" Stroke="DarkBlue" X1="15" Y1="14" X2="585" Y2="330" StrokeThickness="1"/>
+        <Line x:Name="gLineTargeRight" Stroke="DarkBlue" X1="-5" Y1="-4" X2="565" Y2="310" StrokeThickness="1"/>
+        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Height="23" Margin="508,165,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" TextChanged="txtBox_TextChanged"/>
+
     </Grid>
 </Window>

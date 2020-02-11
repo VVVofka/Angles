@@ -23,9 +23,6 @@ namespace AngModel {
 		public Vect CT1 { get; private set; }
 		public Vect CT { get; private set; }
 		public Vect CT2 { get; private set; }
-		//public Point result1 { get; private set; }
-		//public Point result { get; private set; }
-		//public Point result2 { get; private set; }
 		public Model() {
 			TableWidth = Convert.ToDouble(Properties.Resources.TableWidth);
 			TableHeigh = Convert.ToDouble(Properties.Resources.TableHeigh);
@@ -40,12 +37,12 @@ namespace AngModel {
 			ballAim = new Ball(BallDiameter);
 			setBallTarget(2 * BallDiameter, 2 * BallDiameter);
 			setBallCue(TableWidth / 4, TableHeigh / 2);
-			for(double j = -0.1; j <= 0.1; j += 0.01)
-				Console.WriteLine("{0} :{1}", j, Shoot(j));
+			//for(double j = -0.1; j <= 0.1; j += 0.01)
+				//Console.WriteLine("{0} :{1}", j, Shoot(j));
 		} // //////////////////////////////////////////////////////////////////////
 		public Lose setActiveLose(int index) { return activeLose = loses[index]; }
-		public void setBallCue(double X, double Y) { ballCue.set(X, Y); }
-		public void setBallTarget(double X, double Y) { ballTarget.set(X, Y); }
+		public void setBallCue(double X, double Y) { ballCue.set(X, Y); ballCue.visible = true; }
+		public void setBallTarget(double X, double Y) { ballTarget.set(X, Y); ballTarget.visible = true; }
 		public bool Shoot(double k) {  //k=-1...+1
 			double lenAT = ballTarget.R * k;
 			double lenTO = Vect.len2(ballTarget.point, ballCue.point);
@@ -55,7 +52,12 @@ namespace AngModel {
 			double gamma = alfa - betta;
 			pointAim.X = ballCue.x - lenAO * Math.Sin(gamma);
 			pointAim.Y = ballCue.y - lenAO * Math.Cos(gamma);
-			double lenAC = Math.Sqrt( ballTarget.D * ballTarget.D - lenAT * lenAT);
+			double tmp = ballTarget.D * ballTarget.D - lenAT * lenAT;
+			ballAim.visible = (tmp > 0);
+			if(!ballAim.visible) {
+				return false;
+			}
+			double lenAC = Math.Sqrt( tmp);
 			Vect AO = new Vect(pointAim, ballCue.point);
 			ballAim.point = AO.pointByLen(lenAC);
 			CT = new Vect(ballAim.point, ballTarget.point);

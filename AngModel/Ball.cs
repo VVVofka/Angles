@@ -2,19 +2,15 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 namespace AngModel {
-	class Ball : INotifyPropertyChanged {
+	class Ball{
 		public Ball(double diameter) {
 			mpoint = new Point(-1, -1);
 			R = diameter / 2;
+			visible = false;
 		} // ///////////////////////////////////////////////////////////////////////////
 		Point mpoint;
-		public Point point {
-			get { return mpoint; }
-			set {
-				mpoint = value;
-				OnPropertyChanged("point");
-			}
-		}
+		public bool visible;
+		public Point point {get { return mpoint; }set {mpoint = value;}}
 		public double x { get { return mpoint.X; } private set { mpoint.X = value; } }
 		public double y { get { return mpoint.Y; } private set { mpoint.Y = value; } }
 		double radius;
@@ -22,7 +18,6 @@ namespace AngModel {
 			get { return radius; }
 			set {
 				radius = value;
-				OnPropertyChanged("R");
 			}
 		} // ////////////////////////////////////////////////////////////////////////////
 		public double D {  // Diameter
@@ -31,13 +26,6 @@ namespace AngModel {
 				R = value / 2;
 			}
 		} // /////////////////////////////////////////////////////////////////////
-
 		public void set(double X, double Y) { x = X; y = Y; }
-
-		public event PropertyChangedEventHandler PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName]string prop = "") {
-			if(PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(prop));
-		}
 	} // ******************************************************************************
 }

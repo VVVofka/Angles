@@ -18,6 +18,7 @@ namespace AngModel {
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window {
+		bool needredraw = false;
 		Model model;
 		Line[] borders;// = new Border[]  {Border0, Border0,Border0,Border0,Border0,Border0};
 		Point leftTop, rightBottom;
@@ -27,26 +28,28 @@ namespace AngModel {
 			borders = new Line[] { Border0, Border1, Border2, Border3, Border4, Border5 };
 		} // //////////////////////////////////////////////////////////////////////////////////
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
+			model.Shoot(0);
 			ReDraw();
 		} // ////////////////////////////////////////////////////////////////////////
 		private void ReDraw() {
 			setArea();
 			DrawBorders();
 			DrawBalls();
+			DrawVectors();
 		} // ///////////////////////////////////////////////////////////////////////////////
 		private void Window_SizeChanged(object sender, SizeChangedEventArgs e) {
 			ReDraw();
 		} // ////////////////////////////////////////////////////////////////////////////////
 		private double x(double value) {
-			return value * (rightBottom.X - leftTop.X ) / model.TableWidth;
+			return value * (rightBottom.X - leftTop.X) / model.TableWidth;
 		} // /////////////////////////////////////////////////////////////////////////////////
 		private double y(double value) {
-			return value * (rightBottom.Y - leftTop.Y ) / model.TableHeigh;
+			return value * (rightBottom.Y - leftTop.Y) / model.TableHeigh;
 		} // /////////////////////////////////////////////////////////////////////////////////
 		private void setArea() {
 			double ktable = model.TableWidth / model.TableHeigh;
 			double k = grid.ActualWidth / grid.ActualHeight;
-			double strip = 1;
+			double strip = 0;
 			if(k > ktable) {    // стало более широко
 				leftTop.Y = strip;
 				leftTop.X = strip;
@@ -66,15 +69,10 @@ namespace AngModel {
 				borders[i].Y1 = y(model.loses.borders[i].y1);
 				borders[i].Y2 = y(model.loses.borders[i].y2);
 			}
-			Thickness myThickness = new Thickness();
-			myThickness.Left = 0;
-			myThickness.Right = 0;
-			myThickness.Top = 0;
-			myThickness.Bottom = 0;
-			PlayGround.Margin = myThickness;
+			PlayGround.Margin = new Thickness(0);
 			PlayGround.Width = borders[5].X2;
 			PlayGround.Height = borders[2].Y2;
-			PlayGround.RadiusX =x(model.BallDiameter);
+			PlayGround.RadiusX = x(model.BallDiameter);
 			PlayGround.RadiusY = y(model.BallDiameter);
 		} // //////////////////////////////////////////////////////////////////
 		private void DrawBalls() {
@@ -83,12 +81,61 @@ namespace AngModel {
 			DrawBall(gAimBall, model.ballAim);
 		} // //////////////////////////////////////////////////////////////////
 		private void DrawBall(Ellipse ellipse, Ball ball) {
-			ellipse.Width = x(model.BallDiameter);
-			ellipse.Height = y(model.BallDiameter);
-			Thickness myThickness = new Thickness();
-			myThickness.Left = y(ball.x) - ellipse.ActualWidth / 2;
-			myThickness.Top = y(ball.y) - ellipse.ActualHeight / 2;
-			ellipse.Margin = myThickness;
+			if(ball == null)
+				return;
+			if(ball.visible) {
+				ellipse.Width = x(model.BallDiameter);
+				ellipse.Height = y(model.BallDiameter);
+				Thickness myThickness = new Thickness();
+				myThickness.Left = y(ball.x) - ellipse.ActualWidth / 2;
+				myThickness.Top = y(ball.y) - ellipse.ActualHeight / 2;
+				ellipse.Margin = myThickness;
+				ellipse.Visibility = Visibility.Visible;
+			} else
+				ellipse.Visibility = Visibility.Hidden;
+		} // //////////////////////////////////////////////////////////////////
+		private void DrawVectors() {
+			DrawVector(gLineTargeCentr, model.CT);
+			DrawVector(gLineTargeLeft, model.CT1);
+			DrawVector(gLineTargeRight, model.CT2);
+		} // /////////////////////////////////////////////////////////////////////
+		private void txtBox_TextChanged(object sender, TextChangedEventArgs e) {
+			var x = e.Source as TextBox;
+			string value = x.Text;
+			try {
+				double result = Convert.ToDouble(value);
+				//Console.WriteLine("Converted '{0}' to {1}.", value, result);
+				model.Shoot(result);
+				ReDraw();
+			} catch(FormatException) {
+				Console.WriteLine("Unable to convert '{0}' to a Double.", value);
+			} catch(OverflowException) {
+				Console.WriteLine("'{0}' is outside the range of a Double.", value);
+			}
+		} // //////////////////////////////////////////////////////////////////////////////
+		private void Window_StateChanged(object sender, EventArgs e) {
+			needredraw = true;
+		} // //////////////////////////////////////////////////////////////////////////////
+		private void Window_MouseMove(object sender, MouseEventArgs e) {
+			if(needredraw) {
+				needredraw = false;
+				ReDraw();
+			}
+		} // ///////////////////////////////////////////////////////////////////////////////
+		private void DrawVector(Line line, Vect vect) {
+			if(vect == null)
+				return;
+			Ball ball = model.ballAim;
+			if(ball == null)
+				return;
+			if(ball.visible) {
+				line.X1 = x(vect.a.X);
+				line.Y1 = y(vect.a.Y);
+				line.X2 = x(vect.b.X);
+				line.Y2 = y(vect.b.Y);
+				line.Visibility = Visibility.Visible;
+			} else
+				line.Visibility = Visibility.Hidden;
 		} // //////////////////////////////////////////////////////////////////
 	} // ************************************************************************************
 }
