@@ -37,10 +37,10 @@ namespace AngModel {
 			ballAim = new Ball(BallDiameter);
 			setBallTarget(2 * BallDiameter, 2 * BallDiameter);
 			setBallCue(TableWidth / 4, TableHeigh / 2);
-			for(double j = -1; j < 1; j += 0.1)
+			double j = 0;
+			for(j = -1; j <= 1; j += 0.1)
 				Console.WriteLine("{0} :{1}", j, Shoot(j));
 		} // //////////////////////////////////////////////////////////////////////
-
 		public Lose setActiveLose(int index) { return activeLose = loses[index]; }
 		public void setBallCue(double X, double Y) { ballCue.set(X, Y); }
 		public void setBallTarget(double X, double Y) { ballTarget.set(X, Y); }

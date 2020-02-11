@@ -66,10 +66,21 @@ namespace AngModel {
 				borders[i].Y1 = y(model.loses.borders[i].y1);
 				borders[i].Y2 = y(model.loses.borders[i].y2);
 			}
+			Thickness myThickness = new Thickness();
+			myThickness.Left = 0;
+			myThickness.Right = 0;
+			myThickness.Top = 0;
+			myThickness.Bottom = 0;
+			PlayGround.Margin = myThickness;
+			PlayGround.Width = borders[5].X2;
+			PlayGround.Height = borders[2].Y2;
+			PlayGround.RadiusX =x(model.BallDiameter);
+			PlayGround.RadiusY = y(model.BallDiameter);
 		} // //////////////////////////////////////////////////////////////////
 		private void DrawBalls() {
 			DrawBall(gCueBall, model.ballCue);
-
+			DrawBall(gTargetBall, model.ballTarget);
+			DrawBall(gAimBall, model.ballAim);
 		} // //////////////////////////////////////////////////////////////////
 		private void DrawBall(Ellipse ellipse, Ball ball) {
 			ellipse.Width = x(model.BallDiameter);
