@@ -46,8 +46,34 @@ namespace AngModel {
 		private double y(double value) {
 			return value * (rightBottom.Y - leftTop.Y) / model.TableHeigh;
 		} // /////////////////////////////////////////////////////////////////////////////////
-		private void setArea() {
+		private void grid.ActualHeight() {
 			double ktable = model.TableWidth / model.TableHeigh;
+			double k = grid.ActualWidth / grid.ActualHeight;
+			double strip = 0;
+			if(k > ktable) {    // стало более широко
+				leftTop.Y = strip;
+				leftTop.X = strip;
+				rightBottom.Y = grid.ActualHeight - strip;
+				rightBottom.X = ktable * (rightBottom.Y - leftTop.Y);
+			} else {    // стало более высоко
+				leftTop.X = strip;
+				leftTop.Y = strip;
+				rightBottom.X = grid.ActualWidth - strip;
+				rightBottom.Y = (rightBottom.X - leftTop.X) / ktable;
+			}
+		} // //////////////////////////////////////////////////////////////////
+		private void setArea() {
+			double xszmin = Math.Min(model.activeLose.point1.X, model.activeLose.point2.X);
+			double xszmax = Math.Max(model.activeLose.point1.X, model.activeLose.point2.X);
+			xszmin = Math.Min(xszmin, model.ballCue.point.X - model.ballCue.R);
+			xszmax = Math.Max(xszmax, model.ballCue.point.X + model.ballCue.R);
+
+			double yszmin = Math.Min(model.activeLose.point1.Y, model.activeLose.point2.Y);
+			double yszmax = Math.Max(model.activeLose.point1.Y, model.activeLose.point2.Y);
+			yszmin = Math.Min(yszmin, model.ballCue.point.Y - model.ballCue.R);
+			yszmax = Math.Max(yszmax, model.ballCue.point.Y + model.ballCue.R);
+
+			double ktable = (xszmax - xszmin)/ (yszmax-yszmin);
 			double k = grid.ActualWidth / grid.ActualHeight;
 			double strip = 0;
 			if(k > ktable) {    // стало более широко
